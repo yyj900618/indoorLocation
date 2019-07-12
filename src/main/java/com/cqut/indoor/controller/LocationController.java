@@ -137,7 +137,7 @@ public class LocationController {
         }
         Collections.sort(rpiDdistanceList);
         if (rpiDdistanceList.isEmpty()) {
-            result.put("msg", "失败:为找到匹配的指纹，不能进行定位");
+            result.put("msg", "失败:未找到匹配的指纹，不能进行定位");
             return result;
         }
         else if (rpiDdistanceList.size() >= 2) {
