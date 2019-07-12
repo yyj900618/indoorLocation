@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cqut.indoor.mapper.TDrpMapper" >
+  <resultMap id="BaseResultMap" type="com.cqut.indoor.model.TDrp" >
+    <id column="RPID" property="rpid" jdbcType="VARCHAR" />
+    <result column="X" property="x" jdbcType="DECIMAL" />
+    <result column="Y" property="y" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RPID, X, Y
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cqut.indoor.model.TDrpExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_d_rp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_d_rp
+    where RPID = #{rpid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_d_rp
+    where RPID = #{rpid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cqut.indoor.model.TDrpExample" >
+    delete from t_d_rp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cqut.indoor.model.TDrp" >
+    insert into t_d_rp (RPID, X, Y)
+    values (#{rpid,jdbcType=VARCHAR}, #{x,jdbcType=DECIMAL}, #{y,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqut.indoor.model.TDrp" >
+    insert into t_d_rp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rpid != null" >
+        RPID,
+      </if>
+      <if test="x != null" >
+        X,
+      </if>
+      <if test="y != null" >
+        Y,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rpid != null" >
+        #{rpid,jdbcType=VARCHAR},
+      </if>
+      <if test="x != null" >
+        #{x,jdbcType=DECIMAL},
+      </if>
+      <if test="y != null" >
+        #{y,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cqut.indoor.model.TDrpExample" resultType="java.lang.Integer" >
+    select count(*) from t_d_rp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_d_rp
+    <set >
+      <if test="record.rpid != null" >
+        RPID = #{record.rpid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.x != null" >
+        X = #{record.x,jdbcType=DECIMAL},
+      </if>
+      <if test="record.y != null" >
+        Y = #{record.y,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_d_rp
+    set RPID = #{record.rpid,jdbcType=VARCHAR},
+      X = #{record.x,jdbcType=DECIMAL},
+      Y = #{record.y,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqut.indoor.model.TDrp" >
+    update t_d_rp
+    <set >
+      <if test="x != null" >
+        X = #{x,jdbcType=DECIMAL},
+      </if>
+      <if test="y != null" >
+        Y = #{y,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RPID = #{rpid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqut.indoor.model.TDrp" >
+    update t_d_rp
+    set X = #{x,jdbcType=DECIMAL},
+      Y = #{y,jdbcType=DECIMAL}
+    where RPID = #{rpid,jdbcType=VARCHAR}
+  </update>
+</mapper>

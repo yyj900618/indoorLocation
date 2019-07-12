@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cqut.indoor.mapper.TDendpointMapper" >
+  <resultMap id="BaseResultMap" type="com.cqut.indoor.model.TDendpoint" >
+    <id column="SSID" property="ssid" jdbcType="VARCHAR" />
+    <result column="X" property="x" jdbcType="DECIMAL" />
+    <result column="Y" property="y" jdbcType="DECIMAL" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="ISVALID" property="isvalid" jdbcType="INTEGER" />
+    <result column="MAC" property="mac" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SSID, X, Y, CREATETIME, ISVALID, MAC
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cqut.indoor.model.TDendpointExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_d_endpoint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_d_endpoint
+    where SSID = #{ssid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_d_endpoint
+    where SSID = #{ssid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cqut.indoor.model.TDendpointExample" >
+    delete from t_d_endpoint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cqut.indoor.model.TDendpoint" >
+    insert into t_d_endpoint (SSID, X, Y, CREATETIME, 
+      ISVALID, MAC)
+    values (#{ssid,jdbcType=VARCHAR}, #{x,jdbcType=DECIMAL}, #{y,jdbcType=DECIMAL}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{isvalid,jdbcType=INTEGER}, #{mac,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqut.indoor.model.TDendpoint" >
+    insert into t_d_endpoint
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ssid != null" >
+        SSID,
+      </if>
+      <if test="x != null" >
+        X,
+      </if>
+      <if test="y != null" >
+        Y,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="isvalid != null" >
+        ISVALID,
+      </if>
+      <if test="mac != null" >
+        MAC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ssid != null" >
+        #{ssid,jdbcType=VARCHAR},
+      </if>
+      <if test="x != null" >
+        #{x,jdbcType=DECIMAL},
+      </if>
+      <if test="y != null" >
+        #{y,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isvalid != null" >
+        #{isvalid,jdbcType=INTEGER},
+      </if>
+      <if test="mac != null" >
+        #{mac,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cqut.indoor.model.TDendpointExample" resultType="java.lang.Integer" >
+    select count(*) from t_d_endpoint
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_d_endpoint
+    <set >
+      <if test="record.ssid != null" >
+        SSID = #{record.ssid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.x != null" >
+        X = #{record.x,jdbcType=DECIMAL},
+      </if>
+      <if test="record.y != null" >
+        Y = #{record.y,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createtime != null" >
+        CREATETIME = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isvalid != null" >
+        ISVALID = #{record.isvalid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mac != null" >
+        MAC = #{record.mac,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_d_endpoint
+    set SSID = #{record.ssid,jdbcType=VARCHAR},
+      X = #{record.x,jdbcType=DECIMAL},
+      Y = #{record.y,jdbcType=DECIMAL},
+      CREATETIME = #{record.createtime,jdbcType=TIMESTAMP},
+      ISVALID = #{record.isvalid,jdbcType=INTEGER},
+      MAC = #{record.mac,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqut.indoor.model.TDendpoint" >
+    update t_d_endpoint
+    <set >
+      <if test="x != null" >
+        X = #{x,jdbcType=DECIMAL},
+      </if>
+      <if test="y != null" >
+        Y = #{y,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null" >
+        CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isvalid != null" >
+        ISVALID = #{isvalid,jdbcType=INTEGER},
+      </if>
+      <if test="mac != null" >
+        MAC = #{mac,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SSID = #{ssid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqut.indoor.model.TDendpoint" >
+    update t_d_endpoint
+    set X = #{x,jdbcType=DECIMAL},
+      Y = #{y,jdbcType=DECIMAL},
+      CREATETIME = #{createtime,jdbcType=TIMESTAMP},
+      ISVALID = #{isvalid,jdbcType=INTEGER},
+      MAC = #{mac,jdbcType=VARCHAR}
+    where SSID = #{ssid,jdbcType=VARCHAR}
+  </update>
+</mapper>
